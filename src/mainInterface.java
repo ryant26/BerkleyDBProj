@@ -1,5 +1,6 @@
 import com.sleepycat.db.*;
 
+
 import java.io.*;
 import java.util.*;
 
@@ -32,13 +33,13 @@ public class mainInterface {
 		    	}
 		    	else if (type.equals("2")) {
 		          //c.my_table.get(null, , data, lockMode)
-		    		
+
 		    		Cursor cursor = null;
 
 		    		    // Database and environment open omitted for brevity
-		    		  
 
-		    		    // Open the cursor. 
+
+		    		    // Open the cursor.
 		    		    cursor = c.my_table.openCursor(null, null);
 
 		    		    // Cursors need a pair of DatabaseEntry objects to operate. These hold
@@ -46,34 +47,34 @@ public class mainInterface {
 		    		    DatabaseEntry foundKey = new DatabaseEntry();
 		    		    DatabaseEntry foundData = new DatabaseEntry();
 
-		    		    // To iterate, just call getNext() until the last database record has been 
-		    		    // read. All cursor operations return an OperationStatus, so just read 
+		    		    // To iterate, just call getNext() until the last database record has been
+		    		    // read. All cursor operations return an OperationStatus, so just read
 		    		    // until we no longer see OperationStatus.SUCCESS
 		    		    while (cursor.getNext(foundKey, foundData, LockMode.DEFAULT) ==
 		    		        OperationStatus.SUCCESS) {
 		    		        // getData() on the DatabaseEntry objects returns the byte array
 		    		        // held by that object. We use this to get a String value. If the
 		    		        // DatabaseEntry held a byte array representation of some other data
-		    		        // type (such as a complex object) then this operation would look 
+		    		        // type (such as a complex object) then this operation would look
 		    		        // considerably different.
 		    		        String keyString = new String(foundKey.getData());
 		    		        String dataString = new String(foundData.getData());
-		    		        System.out.println("Key | Data : " + keyString + " | " + 
+		    		        System.out.println("Key | Data : " + keyString + " | " +
 		    		                       dataString + "");
 		    		        System.out.println(c.my_table.get(null, foundKey, foundData, null).toString());
-		    		
-		    		
-		    		
+
+
+
 		    	}
 		    		    System.out.println("Enter key:");
-		    		    
-		    		     
+
+
 		    	}
 		    	else if (type.equals("3")) {
-		           
+
 		    	}
 		    	else if (type.equals("4")) {
-		    		
+
 		    	}
 		    	else if (type.equals("5")) {
 		    		if (c.type.equals("btree")) {
@@ -98,19 +99,19 @@ public class mainInterface {
 		    		System.out.println("Incorrect option. Please try again");
 		    	}
 		    	}
-		    
-		    
-		    
-		    
+
+
+
+
 
 		    /* to remove the table */
 		    //Database.remove(SAMPLE_TABLE,null,null);
-	       
+
 	        }
 
 	    }
-	    
 
-	
-	
+
+
+
 

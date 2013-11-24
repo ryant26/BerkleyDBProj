@@ -1,6 +1,6 @@
 import java.util.Random;
-
 import com.sleepycat.db.*;
+import org.*;
 
 
 
@@ -8,21 +8,20 @@ public class Create {
 
     // to specify the file name for the table
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
-    public static final String BTREE_TABLE = "/tmp/cbotto_db/btree_table";
+    public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
     public static final String HASH_TABLE = "/tmp/cbotto_db/hash_table";
     private static final int NO_RECORDS = 1000;
     public String type;
     public Database my_table;
-	
+
     public Create(String type) {
     	this.type = type;
     	this.my_table = null;
     }
-    
-	
+
+
 	public void createDatabase() {
 		try {
-
 		    // Create the database object.
 		    // There is no environment for this simple example.
 		    DatabaseConfig dbConfig = new DatabaseConfig();
@@ -46,29 +45,29 @@ public class Create {
 			    populateTable(my_table,NO_RECORDS);
 			    System.out.println("1000 records inserted into" + HASH_TABLE);
 	    	}
-		    
+
 	    	else if (this.type.equals("indexfile")) {
-	    		
+
 	    	}
 	    	else {
 	    		System.out.println("Incorrect db_test_option (should be caught in mainInterface");
 	    	}
 
 
-	
+
 
 		}
         catch (Exception e1) {
             System.err.println("Test failed: " + e1.toString());
         }
 	}
-		
+
 	    static void populateTable(Database my_table, int nrecs ) {
 	    	int range;
 	            DatabaseEntry kdbt, ddbt;
 	    	String s;
 
-	    	/*  
+	    	/*
 	    	 *  generate a random string with the length between 64 and 127,
 	    	 *  inclusive.
 	    	 *
@@ -82,7 +81,7 @@ public class Create {
 	    		/* to generate a key string */
 	    		range = 64 + random.nextInt( 64 );
 	    		s = "";
-	    		for ( int j = 0; j < range; j++ ) 
+	    		for ( int j = 0; j < range; j++ )
 	    		  s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
 	    		/* to create a DBT for key */
@@ -91,20 +90,20 @@ public class Create {
 	    		//System.out.println(kdbt);
 
 	                    // to print out the key/data pair
-	                     //System.out.println(kdbt.toString());	
+	                     //System.out.println(kdbt.toString());
 
 	    		/* to generate a data string */
 	    		range = 64 + random.nextInt( 64 );
 	    		s = "";
-	    		for ( int j = 0; j < range; j++ ) 
+	    		for ( int j = 0; j < range; j++ )
 	    		  s+=(new Character((char)(97+random.nextInt(26)))).toString();
 	                    // to print out the key/data pair
-	                    System.out.println(s);	
+	                    System.out.println(s);
 	                    System.out.println("");
-	    		
+
 	    		/* to create a DBT for data */
 	    		ddbt = new DatabaseEntry(s.getBytes());
-	    		ddbt.setSize(s.length()); 
+	    		ddbt.setSize(s.length());
 
 	    		/* to insert the key/data pair into the database */
 	                    my_table.putNoOverwrite(null, kdbt, ddbt);
@@ -115,5 +114,5 @@ public class Create {
 	                System.exit(1);
 	            }
 	        }
-		
+
 }
