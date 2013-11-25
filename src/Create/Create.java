@@ -14,6 +14,8 @@ public class Create {
     public String type;
     public Database my_table;
     public String randKey;
+    public String randKey2;
+    public String randData;
 
     public Create(String type) {
     	this.type = type;
@@ -53,68 +55,66 @@ public class Create {
 	    	else {
 	    		System.out.println("Incorrect db_test_option (should be caught in mainInterface");
 	    	}
-
-
-
-
-		}
-        catch (Exception e1) {
+		}catch (Exception e1) {
             System.err.println("Test failed: " + e1.toString());
         }
 	}
 
-	    void populateTable(Database my_table, int nrecs ) {
-	    	int range;
-	            DatabaseEntry kdbt, ddbt;
-	    	String s;
+	void populateTable(Database my_table, int nrecs ) {
+        int range;
+            DatabaseEntry kdbt, ddbt;
+        String s;
 
-	    	/*
-	    	 *  generate a random string with the length between 64 and 127,
-	    	 *  inclusive.
-	    	 *
-	    	 *  Seed the random number once and once only.
-	    	 */
-	    	Random random = new Random(1000000);
+        /*
+         *  generate a random string with the length between 64 and 127,
+         *  inclusive.
+         *
+         *  Seed the random number once and once only.
+         */
+        Random random = new Random(1000000);
 
-	            try {
-	                for (int i = 0; i < nrecs; i++) {
+            try {
+            for (int i = 0; i < nrecs; i++) {
 
-	    		/* to generate a key string */
-	    		range = 64 + random.nextInt( 64 );
-	    		s = "";
-	    		for ( int j = 0; j < range; j++ )
-	    		  s+=(new Character((char)(97+random.nextInt(26)))).toString();
+            /* to generate a key string */
+            range = 64 + random.nextInt( 64 );
+            s = "";
+            for ( int j = 0; j < range; j++ )
+              s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
-                if (i == 100) randKey = s;
-	    		/* to create a DBT for key */
-	    		kdbt = new DatabaseEntry(s.getBytes());
-	    		kdbt.setSize(s.length());
-	    		//System.out.println(kdbt);
+            if (i == 500) randKey = s;
+            if (i == 701) randKey2 = s;
+            /* to create a DBT for key */
+            kdbt = new DatabaseEntry(s.getBytes());
+            kdbt.setSize(s.length());
+            //System.out.println(kdbt);
 
-	                    // to print out the key/data pair
-	                    //System.out.println(kdbt.toString());
+                    // to print out the key/data pair
+                    //System.out.println(kdbt.toString());
 
-	    		/* to generate a data string */
-	    		range = 64 + random.nextInt( 64 );
-	    		s = "";
-	    		for ( int j = 0; j < range; j++ )
-	    		  s+=(new Character((char)(97+random.nextInt(26)))).toString();
-	                    // to print out the key/data pair
-	                    System.out.println(s);
-	                    System.out.println("");
+            /* to generate a data string */
+            range = 64 + random.nextInt( 64 );
+            s = "";
+            for ( int j = 0; j < range; j++ )
+              s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
-	    		/* to create a DBT for data */
-	    		ddbt = new DatabaseEntry(s.getBytes());
-	    		ddbt.setSize(s.length());
+            // to print out the key/data pair
+            System.out.println(s);
+            if (i == 8) randData = s;
+            System.out.println("");
 
-	    		/* to insert the key/data pair into the database */
-	                    my_table.putNoOverwrite(null, kdbt, ddbt);
-	                }
-	            }
-	            catch (DatabaseException dbe) {
-	                System.err.println("Populate the table: "+dbe.toString());
-	                System.exit(1);
-	            }
+            /* to create a DBT for data */
+            ddbt = new DatabaseEntry(s.getBytes());
+            ddbt.setSize(s.length());
+
+            /* to insert the key/data pair into the database */
+                    my_table.putNoOverwrite(null, kdbt, ddbt);
+                }
+            }
+            catch (DatabaseException dbe) {
+                System.err.println("Populate the table: "+dbe.toString());
+                System.exit(1);
 	        }
+	}
 
 }

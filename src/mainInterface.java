@@ -1,6 +1,7 @@
 import Create.Create;
 import KeySearch.KeySearchInterface;
 import com.sleepycat.db.*;
+import DataSearch.*;
 
 
 import java.io.*;
@@ -32,6 +33,7 @@ public class mainInterface {
 		    	if (type.equals("1")) {
 		    		c = new Create(args[0]);
 		    		c.createDatabase();
+                    System.out.println("Data: \n" + c.randData);
 		    	}
 		    	else if (type.equals("2")) {
                     /*
@@ -76,7 +78,8 @@ public class mainInterface {
                     ksi.getKey();
 		    	}
 		    	else if (type.equals("3")) {
-
+                    DataSearchInterface dsi = new DataSearchInterface(c);
+                    dsi.getKey();
 		    	}
 		    	else if (type.equals("4")) {
 
@@ -103,7 +106,7 @@ public class mainInterface {
 		    	else {
 		    		System.out.println("Incorrect option. Please try again");
 		    	}
-		    	}
+		    }
 
 
 
@@ -112,9 +115,8 @@ public class mainInterface {
 		    /* to remove the table */
 		    //Database.remove(SAMPLE_TABLE,null,null);
 
-	        }
-
 	    }
+}
 
 
 
