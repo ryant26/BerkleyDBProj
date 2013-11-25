@@ -15,6 +15,11 @@ public class KeySearch extends Search{
     }
 
     public void searchFor(String search){
+        /**
+         * This is where most of the work happens to search for
+         * a key in a database.
+         * @param String - your search key
+         */
         key = new DatabaseEntry();
         data = new DatabaseEntry();
         key.setData(search.getBytes());

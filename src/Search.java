@@ -19,21 +19,38 @@ public abstract class Search {
     }
 
     protected String entryConverter(DatabaseEntry entry){
+        /**
+         * Returns a string that has been converted from the bytes
+         * for the Berk DB gives us.
+         * @param Database entry
+         * @return String
+         */
         return new String(entry.getData());
     }
 
     public abstract void searchFor(String search);
 
     protected void addToPrintBuffer(String key, String data){
+        /**
+         * This method is used to add lines to the print buffer.
+         * Which will eventually be used to print to "Answers.txt"
+         * @param String - key used / returned from query
+         * @parm String - data used / returned from query
+         */
         _printBuffer += key + "\n" + data + "\n\n";
     }
 
     protected void printResults(){
+        /**
+         * This method prints all results in the print buffer
+         * into Answers.txt as per assingment description
+         */
         try{
             PrintWriter pw = new PrintWriter("Answers.txt", "UTF-8");
             pw.print(_printBuffer);
             pw.close();
             System.out.print("Print Buffer: \n");
+            //Also prints to the screen for the time being
             System.out.println(_printBuffer);
         }catch (Exception e){
             e.printStackTrace();
@@ -41,11 +58,15 @@ public abstract class Search {
     }
 
     public void printOpStatus(){
+        //Mostly for debugging
         System.out.println(_operStatus);
     }
 
     @Override
     public String toString(){
+        /**
+         * Use this to print data about each search class
+         */
         String result = "Query Time: " + _queryTime + "\n"
                         + "Results: \n" + _printBuffer;
         return result;
