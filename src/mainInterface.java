@@ -2,6 +2,7 @@ import Create.Create;
 import KeySearch.KeySearchInterface;
 import com.sleepycat.db.*;
 import DataSearch.*;
+import RangeSearch.*;
 
 
 import java.io.*;
@@ -77,10 +78,12 @@ public class mainInterface {
 		    	else if (type.equals("3")) {
                     DataSearchInterface dsi = new DataSearchInterface(c);
                     dsi.getKey();
-                    System.out.println("data was:" +c.randData);
+                    System.out.println("data was:" + c.randData);
 		    	}
 		    	else if (type.equals("4")) {
-
+                    RangeSearch rs = new RangeSearch(c.my_table);
+                    rs.searchFor(c.randKey + " " +c.randKey2);
+                    System.out.print(rs);
 		    	}
 		    	else if (type.equals("5")) {
 		    		if (c.type.equals("btree")) {

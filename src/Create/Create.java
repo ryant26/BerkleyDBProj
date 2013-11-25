@@ -9,8 +9,8 @@ public class Create {
     // to specify the file name for the table
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
     public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
-    public static final String HASH_TABLE = "/tmp/cbotto_db/hash_table";
-    private static final int NO_RECORDS = 10;
+    public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
+    private static final int NO_RECORDS = 1000;
     public String type;
     public Database my_table;
     public String randKey;
@@ -82,7 +82,7 @@ public class Create {
             for ( int j = 0; j < range; j++ )
               s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
-            if (i == 8) randKey = s;
+            if (i == 500) randKey = s;
             if (i == 701) randKey2 = s;
             /* to create a DBT for key */
             kdbt = new DatabaseEntry(s.getBytes());
@@ -100,13 +100,12 @@ public class Create {
 
             // to print out the key/data pair
             System.out.println(s);
-            if (i == 8) randData = s;
+            if (i == 500) randData = s;
             System.out.println("");
 
             /* to create a DBT for data */
             ddbt = new DatabaseEntry(s.getBytes());
             ddbt.setSize(s.length());
-
             /* to insert the key/data pair into the database */
                     my_table.putNoOverwrite(null, kdbt, ddbt);
                 }

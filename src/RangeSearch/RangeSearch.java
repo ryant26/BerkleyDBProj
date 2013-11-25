@@ -18,20 +18,24 @@ public class RangeSearch extends Search {
 
     public void searchFor(String search){
         openCursor();
-        DatabaseEntry key = new DatabaseEntry("".getBytes());
-        DatabaseEntry data = new DatabaseEntry("".getBytes());
-        boolean found = false;
+        String [] tokens = search.split(" ");
+        DatabaseEntry key = new DatabaseEntry(tokens[0].getBytes());
+        DatabaseEntry data = new DatabaseEntry();
 
         try{
+            cursor.getSearchKey(key, data, LockMode.DEFAULT);
             long initTime = System.currentTimeMillis();
             while (cursor.getNext(key, data, LockMode.DEFAULT) ==
                     OperationStatus.SUCCESS){
 
-                String keyString = new String(key.getData());
-                String dataString = new String(data.getData());
+                String keyString = entryConverter(key);
+                String dataString = entryConverter(data);
 
-                if (keyString.equalsIgnoreCase(search)){
+                addToPrintBuffer(keyString, dataString);
+
+                if (keyString.contains(tokens[1])){
                     _queryTime = System.currentTimeMillis() - initTime;
+                    System.out.println("Seccessful range");
                     addToPrintBuffer(search, entryConverter(data));
                     printResults();
                     return;
@@ -48,5 +52,9 @@ public class RangeSearch extends Search {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    private String[] getPieces(String input){
+        return input.split(" ");
     }
 }
