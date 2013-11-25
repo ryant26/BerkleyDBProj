@@ -72,7 +72,7 @@ public class mainInterface {
 
                     KeySearch ks = new KeySearch(c.my_table);
                     ks.searchFor(c.randKey);
-                    ks.printOpStatus();
+                    System.out.println(ks);
 		    	}
 		    	else if (type.equals("3")) {
 
