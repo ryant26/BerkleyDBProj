@@ -19,13 +19,13 @@ public class DataSearch extends Search {
         openCursor();
         DatabaseEntry key = new DatabaseEntry();
         DatabaseEntry data = new DatabaseEntry();
+        data.setSize(search.length());
         int i = 0;
 
             long initTime = System.currentTimeMillis();
         try{
             while (cursor.getNext(key, data, LockMode.DEFAULT) ==
                     OperationStatus.SUCCESS){
-                i++;
                 String keyString = new String(key.getData());
                 String dataString = new String(data.getData());
 

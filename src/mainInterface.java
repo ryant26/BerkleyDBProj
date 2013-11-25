@@ -33,7 +33,6 @@ public class mainInterface {
 		    	if (type.equals("1")) {
 		    		c = new Create(args[0]);
 		    		c.createDatabase();
-                    System.out.println("Data: \n" + c.randData);
 		    	}
 		    	else if (type.equals("2")) {
                     /*
@@ -67,19 +66,18 @@ public class mainInterface {
 		    		        System.out.println("Key | Data : " + keyString + " | " +
 		    		                       dataString + "");
 		    		        System.out.println(c.my_table.get(null, foundKey, foundData, null).toString());
-
-
-
 		    	        }
 		    		    System.out.println("Enter key:");
                         */
 
                     KeySearchInterface ksi = new KeySearchInterface(c);
                     ksi.getKey();
+
 		    	}
 		    	else if (type.equals("3")) {
                     DataSearchInterface dsi = new DataSearchInterface(c);
                     dsi.getKey();
+                    System.out.println("data was:" +c.randData);
 		    	}
 		    	else if (type.equals("4")) {
 

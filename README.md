@@ -19,6 +19,11 @@ KeySearch:
 Not Working:
 ------------
 
+Cursor:
+Any iteration with the cursor seems to return some garbage at the end of every data value. Even in the example
+program given by TA's, the data returned when iterating with a cursor is different than the data returned if we
+used a .get(). No solution to this so far, might have to ask TA's.
+
 KeySearch:
 -cannot specify a key to search for
 
