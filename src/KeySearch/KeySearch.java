@@ -1,13 +1,14 @@
+package KeySearch;
+import com.sleepycat.db.*;
+import Utilities.Search;
 /**
  * User: Ryan
  * Date: 2013-11-24
  * Time: 2:13 PM
  */
-import com.sleepycat.db.*;
 
-import java.io.PrintWriter;
 
-public class KeySearch extends Search{
+public class KeySearch extends Search {
     private DatabaseEntry key, data;
 
     public KeySearch(Database db){

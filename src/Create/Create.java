@@ -1,6 +1,7 @@
+package Create;
+
 import java.util.Random;
 import com.sleepycat.db.*;
-
 
 
 public class Create {

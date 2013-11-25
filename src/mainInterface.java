@@ -1,3 +1,5 @@
+import Create.Create;
+import KeySearch.KeySearchInterface;
 import com.sleepycat.db.*;
 
 
@@ -70,9 +72,8 @@ public class mainInterface {
 		    		    System.out.println("Enter key:");
                         */
 
-                    KeySearch ks = new KeySearch(c.my_table);
-                    ks.searchFor(c.randKey);
-                    System.out.println(ks);
+                    KeySearchInterface ksi = new KeySearchInterface(c);
+                    ksi.getKey();
 		    	}
 		    	else if (type.equals("3")) {
 

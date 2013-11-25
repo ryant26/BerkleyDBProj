@@ -1,4 +1,4 @@
-/**
+package Utilities; /**
  * User: Ryan
  * Date: 2013-11-24
  * Time: 2:15 PM
@@ -49,10 +49,8 @@ public abstract class Search {
             PrintWriter pw = new PrintWriter("Answers.txt", "UTF-8");
             pw.print(_printBuffer);
             pw.close();
-            System.out.print("Print Buffer: \n");
-            //Also prints to the screen for the time being
-            System.out.println(_printBuffer);
         }catch (Exception e){
+            System.out.println("Could not write to txt file");
             e.printStackTrace();
         }
     }
