@@ -1,6 +1,5 @@
 import java.util.Random;
 import com.sleepycat.db.*;
-import org.*;
 
 
 
@@ -10,9 +9,10 @@ public class Create {
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
     public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
     public static final String HASH_TABLE = "/tmp/cbotto_db/hash_table";
-    private static final int NO_RECORDS = 1000;
+    private static final int NO_RECORDS = 11;
     public String type;
     public Database my_table;
+    public String randKey;
 
     public Create(String type) {
     	this.type = type;
@@ -62,7 +62,7 @@ public class Create {
         }
 	}
 
-	    static void populateTable(Database my_table, int nrecs ) {
+	    void populateTable(Database my_table, int nrecs ) {
 	    	int range;
 	            DatabaseEntry kdbt, ddbt;
 	    	String s;
@@ -84,13 +84,14 @@ public class Create {
 	    		for ( int j = 0; j < range; j++ )
 	    		  s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
+                if (i == 10) randKey = s;
 	    		/* to create a DBT for key */
 	    		kdbt = new DatabaseEntry(s.getBytes());
 	    		kdbt.setSize(s.length());
 	    		//System.out.println(kdbt);
 
 	                    // to print out the key/data pair
-	                     //System.out.println(kdbt.toString());
+	                    //System.out.println(kdbt.toString());
 
 	    		/* to generate a data string */
 	    		range = 64 + random.nextInt( 64 );

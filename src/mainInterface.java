@@ -32,6 +32,7 @@ public class mainInterface {
 		    		c.createDatabase();
 		    	}
 		    	else if (type.equals("2")) {
+                    /*
 		          //c.my_table.get(null, , data, lockMode)
 
 		    		Cursor cursor = null;
@@ -65,10 +66,13 @@ public class mainInterface {
 
 
 
-		    	}
+		    	        }
 		    		    System.out.println("Enter key:");
+                        */
 
-
+                    KeySearch ks = new KeySearch(c.my_table);
+                    ks.searchFor(c.randKey);
+                    ks.printOpStatus();
 		    	}
 		    	else if (type.equals("3")) {
 

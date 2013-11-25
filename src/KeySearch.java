@@ -5,10 +5,18 @@
  */
 import com.sleepycat.db.*;
 
+import java.io.PrintWriter;
+
 public class KeySearch extends Search{
     private DatabaseEntry key, data;
 
+    public KeySearch(Database db){
+        super(db);
+    }
+
     public void searchFor(String search){
+        key = new DatabaseEntry();
+        data = new DatabaseEntry();
         key.setData(search.getBytes());
         key.setSize(search.length());
 
@@ -20,10 +28,14 @@ public class KeySearch extends Search{
         }catch (DatabaseException edb){
             edb.printStackTrace();
         }
-
-        _result = new String(data.getData());
+        if (_operStatus == OperationStatus.SUCCESS){
+            addToPrintBuffer(search, entryConverter(data));
+            printResults();
+        }else System.out.println("No Results match your query");
 
     }
+
+
 
     public DatabaseEntry getKey() {
         return key;
