@@ -29,14 +29,17 @@ public class DataSearch extends Search {
                 String keyString = new String(key.getData());
                 String dataString = new String(data.getData());
 
-                if (dataString.contains(search)){
+                if (dataString.equalsIgnoreCase(search)){
                     cursor.close();
                     _queryTime = System.currentTimeMillis() - initTime;
                     addToPrintBuffer(keyString, entryConverter(data));
                     printResults();
                     return;
                 }
+                key = new DatabaseEntry();
+                data = new DatabaseEntry();
             }
+            System.out.println("Entry not in Database");
         }catch (Exception e){
             e.printStackTrace();
         }

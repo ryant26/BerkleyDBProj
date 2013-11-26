@@ -33,13 +33,16 @@ public class RangeSearch extends Search {
 
                 addToPrintBuffer(keyString, dataString);
 
-                if (keyString.contains(tokens[1])){
+                if (keyString.equalsIgnoreCase(tokens[1])){
                     _queryTime = System.currentTimeMillis() - initTime;
                     System.out.println("Seccessful range");
                     addToPrintBuffer(search, entryConverter(data));
                     printResults();
                     return;
                 }
+
+                key = new DatabaseEntry();
+                data = new DatabaseEntry();
             }
         }catch (Exception e){
             e.printStackTrace();
