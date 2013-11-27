@@ -26,3 +26,5 @@ Important Notes:
 ----------------
 - If you are useing a while loop to increment the cursor you MUST** reinitalize the key and data
   to be new DatabaseEntry() objects. Otherwise you get garbage from previous result.
+
+-If I have time this week I am going to try and clean up my searches, I know they are pretty ugly right now.

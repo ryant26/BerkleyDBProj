@@ -82,8 +82,13 @@ public class mainInterface {
 		    	}
 		    	else if (type.equals("4")) {
                     RangeSearch rs = new RangeSearch(c.my_table);
-                    rs.searchFor(c.randKey + " " +c.randKey2);
-                    System.out.print(rs);
+                    if (c.type.equalsIgnoreCase("Btree")){
+                        rs.searchFor(c.randKey + " " +c.randKey2);
+                        //System.out.print(rs);
+                    }else{
+                        rs.rangeSearch(c.randKey + " " +c.randKey2);
+                        System.out.println(rs);
+                    }
 		    	}
 		    	else if (type.equals("5")) {
 		    		if (c.type.equals("btree")) {

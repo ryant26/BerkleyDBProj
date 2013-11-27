@@ -83,7 +83,7 @@ public class Create {
               s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
             if (i == 500) randKey = s;
-            if (i == 701) randKey2 = s;
+            if (i == 501) randKey2 = s;
             /* to create a DBT for key */
             kdbt = new DatabaseEntry(s.getBytes());
             kdbt.setSize(s.length());
