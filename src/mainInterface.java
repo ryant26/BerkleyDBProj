@@ -84,7 +84,7 @@ public class mainInterface {
                     RangeSearch rs = new RangeSearch(c.my_table);
                     if (c.type.equalsIgnoreCase("Btree")){
                         rs.searchFor(c.randKey + " " +c.randKey2);
-                        //System.out.print(rs);
+                        System.out.print(rs);
                     }else{
                         rs.rangeSearch(c.randKey + " " +c.randKey2);
                         System.out.println(rs);

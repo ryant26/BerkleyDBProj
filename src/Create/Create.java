@@ -72,6 +72,11 @@ public class Create {
          *  Seed the random number once and once only.
          */
         Random random = new Random(1000000);
+        //Random initials for getting random keys and data values
+        Random ranKeysAndData = new Random(123456);
+        int keyVal1 = ranKeysAndData.nextInt(nrecs/2);
+        int keyVal2 = ranKeysAndData.nextInt(nrecs/2) + keyVal1;
+        int dataVal = ranKeysAndData.nextInt(nrecs);
 
             try {
             for (int i = 0; i < nrecs; i++) {
@@ -82,8 +87,8 @@ public class Create {
             for ( int j = 0; j < range; j++ )
               s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
-            if (i == 500) randKey = s;
-            if (i == 501) randKey2 = s;
+            if (i == keyVal1) randKey = s;
+            if (i == keyVal2) randKey2 = s;
             /* to create a DBT for key */
             kdbt = new DatabaseEntry(s.getBytes());
             kdbt.setSize(s.length());
@@ -100,7 +105,7 @@ public class Create {
 
             // to print out the key/data pair
             System.out.println(s);
-            if (i == 500) randData = s;
+            if (i == dataVal) randData = s;
             System.out.println("");
 
             /* to create a DBT for data */
