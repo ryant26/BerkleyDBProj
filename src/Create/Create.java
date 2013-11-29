@@ -116,6 +116,7 @@ public class Create {
         int range;
         DatabaseEntry kdbt, ddbt;
         String s;
+        boolean set = false;
 
         /*
          *  generate a random string with the length between 64 and 127,
@@ -140,7 +141,12 @@ public class Create {
               s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
             if (i == keyVal1) randKey = s;
-            if (i == keyVal2) randKey2 = s;
+            if (i > keyVal2 && !set){
+                if(s.compareToIgnoreCase(randKey)>0){
+                    randKey2 = s;
+                    set = true;
+                }
+            }
             /* to create a DBT for key */
             kdbt = new DatabaseEntry(s.getBytes());
             kdbt.setSize(s.length());
