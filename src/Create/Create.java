@@ -20,24 +20,21 @@ public class Create {
     private static final int NO_RECORDS = 100000;
     public String type;
     public Database my_table;
+    public Database my_table_sec;
     public static Relationship relate;
-<<<<<<< HEAD
-    public String randKey;
-    public String randKey2;
-    private Cursor cursor;
-    //@SecondaryKey(relate= Relationship.ONE_TO_ONE)
-   // public DatabaseEntry indexData;
-=======
     
     public String randKey;
     public String randKey2;
-
->>>>>>> 02f4da7f9c71273096fd3c9dad04a4bf3d709aa6
+    private Cursor cursor;
     public String randData;
+    //@SecondaryKey(relate= Relationship.ONE_TO_ONE)
+   // public DatabaseEntry indexData;
+
 
     public Create(String type) {
     	this.type = type;
     	this.my_table = null;
+    	this.my_table_sec = null;
     }
 
 	public void createDatabase() {
@@ -70,26 +67,22 @@ public class Create {
 	    		
 			    dbConfig.setType(DatabaseType.BTREE);
 			    dbConfig.setAllowCreate(true);
-			    Database pri_db = new Database(BTREE_TABLE, null, dbConfig);
+			    this.my_table = new Database(BTREE_TABLE, null, dbConfig);
 			    System.out.println(BTREE_TABLE + " has been created");
 
 			    /* populate the new database with NO_RECORDS records */
-			    populateTable(pri_db,NO_RECORDS);
-
+			    populateTable(this.my_table,NO_RECORDS);
+			    System.out.println("1000 records inserted into" + BTREE_TABLE);
 	    		
 	    		StoreConfig store = new StoreConfig();
 	    		store.setAllowCreate(true);
 	    		store.setTransactional(true);
 	    		File enviro = new File("/tmp/");
-<<<<<<< HEAD
 	    		
 	    		dbConfig.setType(DatabaseType.BTREE);
 			    dbConfig.setAllowCreate(true);
-			    Database pri_db = new Database(BTREE_TABLE, null, dbConfig);
-			    System.out.println(BTREE_TABLE + " has been created");
-			    /* populate the new database with NO_RECORDS records */
-			    populateTable(pri_db,NO_RECORDS);
-			    System.out.println("1000 records inserted into" + BTREE_TABLE);
+
+			
 			    Database sec_db = new Database(BTREE_TABLE + "Sec", null, dbConfig);
 		        /*EnvironmentConfig envConfig = new EnvironmentConfig();
 			    envConfig.setTransactional(true);
@@ -100,7 +93,7 @@ public class Create {
 	    		EntityStore es = new EntityStore(env, "store", store);
 	    		PrimaryIndex<String, entityData> pi = es.getPrimaryIndex(String.class, entityData.class);*/
 	    		try{
-	                cursor = pri_db.openCursor(null, null);
+	                cursor = this.my_table.openCursor(null, null);
 	            }catch(Exception e){
 	                e.printStackTrace();
 	            }
@@ -122,9 +115,9 @@ public class Create {
 	            }catch (Exception e){
 	                e.printStackTrace();
 	            }
+	            this.my_table_sec = sec_db;
 			    //SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "Data" );
-=======
-			 
+			 /*
 			     EnvironmentConfig envConfig = new EnvironmentConfig();
 			     envConfig.setTransactional(true);
 			     envConfig.setAllowCreate(true);
@@ -132,13 +125,10 @@ public class Create {
 			     envConfig.setCacheSize(1000000);
 			     Environment env = new Environment(enviro, envConfig);
 	    		EntityStore es = new EntityStore(env, "store", store);
-			    PrimaryIndex<String, entityData> pi = es.getPrimaryIndex(String.class, entityData.class);
-			    SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "hiiiii");
+			    //PrimaryIndex<String, entityData> pi = es.getPrimaryIndex(String.class, entityData.class);
+			    //SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "hiiiii");
 
-
-			    
->>>>>>> 02f4da7f9c71273096fd3c9dad04a4bf3d709aa6
-
+*/
 	    	}
 	    	else {
 	    		System.out.println("Incorrect db_test_option (should be caught in mainInterface");

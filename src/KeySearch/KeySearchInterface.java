@@ -24,6 +24,11 @@ public class KeySearchInterface extends SearchInterface{
 
     @Override
     protected void custSearch() {
+    	if (create.type.equals("indexfile")) {
+    		search.searchFor(create.randData);
+    	}
+    	else {
         search.searchFor(create.randKey);
+    	}
     }
 }

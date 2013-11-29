@@ -2,6 +2,7 @@ package DataSearch;
 
 import Utilities.SearchInterface;
 import Create.*;
+import KeySearch.KeySearch;
 
 import java.util.Scanner;
 
@@ -14,8 +15,13 @@ public class DataSearchInterface extends SearchInterface{
 
     public DataSearchInterface(Create cobj){
         super(cobj);
+        if (cobj.type.equals("indexfile")) {
+        	search = new KeySearch(cobj.my_table_sec);
+        }
+        else {
         search = new DataSearch(cobj.my_table);
-    }
+        }
+        }
 
     @Override
     protected void custSearch() {
