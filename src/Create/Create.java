@@ -5,10 +5,12 @@ import java.util.Random;
 
 import com.sleepycat.db.*;
 import com.sleepycat.persist.*;
+import com.sleepycat.persist.model.Entity;
+import com.sleepycat.persist.model.Persistent;
 import com.sleepycat.persist.model.PrimaryKey;
 import com.sleepycat.persist.model.Relationship;
 import com.sleepycat.persist.model.SecondaryKey;
-
+@Entity
 public class Create {
 
     // to specify the file name for the table
@@ -17,14 +19,14 @@ public class Create {
     //public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
 	public static final String BTREE_TABLE = "/tmp/cbotto_db/btree";
 	public static final String HASH_TABLE = "/tmp/cbotto_db/hash";
-    private static final int NO_RECORDS = 1000;
+    private static final int NO_RECORDS = 100000;
     public String type;
     public Database my_table;
     public static Relationship relate;
-    @PrimaryKey
+    
     public String randKey;
     public String randKey2;
-    @SecondaryKey(relate= Relationship.ONE_TO_ONE)
+
     public String randData;
 
     public Create(String type) {
@@ -60,6 +62,16 @@ public class Create {
 	    	}
 
 	    	else if (this.type.equals("indexfile")) {
+	    		
+			    dbConfig.setType(DatabaseType.BTREE);
+			    dbConfig.setAllowCreate(true);
+			    Database pri_db = new Database(BTREE_TABLE, null, dbConfig);
+			    System.out.println(BTREE_TABLE + " has been created");
+
+			    /* populate the new database with NO_RECORDS records */
+			    populateTable(pri_db,NO_RECORDS);
+
+	    		
 	    		StoreConfig store = new StoreConfig();
 	    		store.setAllowCreate(true);
 	    		store.setTransactional(true);
@@ -72,16 +84,9 @@ public class Create {
 			     envConfig.setCacheSize(1000000);
 			     Environment env = new Environment(enviro, envConfig);
 	    		EntityStore es = new EntityStore(env, "store", store);
-			    //PrimaryIndex<String, String> pi = es.getPrimaryIndex(String.class, String.class);
-			    //SecondaryIndex<String, String, String> si = es.getSecondaryIndex(pi, String.class, randData);
+			    PrimaryIndex<String, entityData> pi = es.getPrimaryIndex(String.class, entityData.class);
+			    SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "hiiiii");
 
-			    dbConfig.setType(DatabaseType.BTREE);
-			    dbConfig.setAllowCreate(true);
-			    Database pri_db = new Database(BTREE_TABLE, null, dbConfig);
-			    System.out.println(BTREE_TABLE + " has been created");
-
-			    /* populate the new database with NO_RECORDS records */
-			    populateTable(pri_db,NO_RECORDS);
 
 			    
 
