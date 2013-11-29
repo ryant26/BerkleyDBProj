@@ -10,8 +10,8 @@ import Utilities.SearchInterface;
  */
 public class KeySearchInterface extends SearchInterface{
 
-    public KeySearchInterface(Create cobj){
-        super(cobj);
+    public KeySearchInterface(Create cobj, String searchString){
+        super(cobj, searchString);
         search = new KeySearch(cobj.my_table);
     }
 
@@ -24,11 +24,6 @@ public class KeySearchInterface extends SearchInterface{
 
     @Override
     protected void custSearch() {
-    	if (create.type.equals("indexfile")) {
-    		search.searchFor(create.randData);
-    	}
-    	else {
-        search.searchFor(create.randKey);
-    	}
+        search.searchFor(this.ranSearchKey);
     }
 }

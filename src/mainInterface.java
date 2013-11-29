@@ -71,12 +71,12 @@ public class mainInterface {
 		    		    System.out.println("Enter key:");
                         */
 
-                    KeySearchInterface ksi = new KeySearchInterface(c);
+                    KeySearchInterface ksi = new KeySearchInterface(c, c.randKey);
                     ksi.getKey();
 
 		    	}
 		    	else if (type.equals("3")) {
-                    DataSearchInterface dsi = new DataSearchInterface(c);
+                    DataSearchInterface dsi = new DataSearchInterface(c, c.randData);
                     dsi.getKey();
                     System.out.println("data was:" + c.randData);
 		    	}
