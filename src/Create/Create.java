@@ -10,22 +10,29 @@ import com.sleepycat.persist.model.Persistent;
 import com.sleepycat.persist.model.PrimaryKey;
 import com.sleepycat.persist.model.Relationship;
 import com.sleepycat.persist.model.SecondaryKey;
-
+@Entity
 public class Create {
 
     // to specify the file name for the table
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
 	public static final String BTREE_TABLE = "/tmp/cbotto_db/btree";
 	public static final String HASH_TABLE = "/tmp/cbotto_db/hash";
-    private static final int NO_RECORDS = 1000;
+    private static final int NO_RECORDS = 100000;
     public String type;
     public Database my_table;
     public static Relationship relate;
+<<<<<<< HEAD
     public String randKey;
     public String randKey2;
     private Cursor cursor;
     //@SecondaryKey(relate= Relationship.ONE_TO_ONE)
    // public DatabaseEntry indexData;
+=======
+    
+    public String randKey;
+    public String randKey2;
+
+>>>>>>> 02f4da7f9c71273096fd3c9dad04a4bf3d709aa6
     public String randData;
 
     public Create(String type) {
@@ -60,10 +67,21 @@ public class Create {
 	    	}
 
 	    	else if (this.type.equals("indexfile")) {
+	    		
+			    dbConfig.setType(DatabaseType.BTREE);
+			    dbConfig.setAllowCreate(true);
+			    Database pri_db = new Database(BTREE_TABLE, null, dbConfig);
+			    System.out.println(BTREE_TABLE + " has been created");
+
+			    /* populate the new database with NO_RECORDS records */
+			    populateTable(pri_db,NO_RECORDS);
+
+	    		
 	    		StoreConfig store = new StoreConfig();
 	    		store.setAllowCreate(true);
 	    		store.setTransactional(true);
 	    		File enviro = new File("/tmp/");
+<<<<<<< HEAD
 	    		
 	    		dbConfig.setType(DatabaseType.BTREE);
 			    dbConfig.setAllowCreate(true);
@@ -105,6 +123,21 @@ public class Create {
 	                e.printStackTrace();
 	            }
 			    //SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "Data" );
+=======
+			 
+			     EnvironmentConfig envConfig = new EnvironmentConfig();
+			     envConfig.setTransactional(true);
+			     envConfig.setAllowCreate(true);
+			     envConfig.setInitializeCache(true);
+			     envConfig.setCacheSize(1000000);
+			     Environment env = new Environment(enviro, envConfig);
+	    		EntityStore es = new EntityStore(env, "store", store);
+			    PrimaryIndex<String, entityData> pi = es.getPrimaryIndex(String.class, entityData.class);
+			    SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "hiiiii");
+
+
+			    
+>>>>>>> 02f4da7f9c71273096fd3c9dad04a4bf3d709aa6
 
 	    	}
 	    	else {
