@@ -12,17 +12,17 @@ public class Create {
 
     // to specify the file name for the table
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
-	public static final String BTREE_TABLE = "/tmp/cbotto_db/btree";
-	public static final String HASH_TABLE = "/tmp/cbotto_db/hash";
-	public static final String INDEX_TABLE = "/tmp/cbotto_db/indexpri";
-	public static final String INDEX_TABLE2 = "/tmp/cbotto_db/indexsec";
+	public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
+	public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
+	public static final String INDEX_TABLE = "/Users/Ryan/Desktop/tmp/index1";
+	public static final String INDEX_TABLE2 = "/Users/Ryan/Desktop/tmp/index2";
     private static final int NO_RECORDS = 10;
     public String type;
     public Database my_table;
     public Database my_table_sec;
     public PrintWriter file;
     public static Relationship relate;
-    
+
     public String randKey;
     public String randKey2;
     private Cursor cursor;
@@ -65,7 +65,7 @@ public class Create {
 	    	}
 
 	    	else if (this.type.equals("indexfile")) {
-	    		
+
 			    dbConfig.setType(DatabaseType.BTREE);
 			    dbConfig.setAllowCreate(true);
 			    this.my_table = new Database(INDEX_TABLE, null, dbConfig);
@@ -75,7 +75,7 @@ public class Create {
 			    populateTable(this.my_table,NO_RECORDS);
 			    System.out.println("100000 records inserted into" + INDEX_TABLE);
 
-			
+
 			   this.my_table_sec = new Database(INDEX_TABLE2, null, dbConfig);
 			   System.out.println(INDEX_TABLE2 + " has been created");
 	    		try{
@@ -92,9 +92,9 @@ public class Create {
 	                	DatabaseEntry dataString = new DatabaseEntry(key.getData());
 	                    DatabaseEntry keyString = new DatabaseEntry(data.getData());
 	                	//ed =pi.put(new entityData(keyString, dataString));
-	                    
+
 	                    this.my_table_sec.put(null, keyString, dataString);
-	                    
+
 	                    key = new DatabaseEntry();
 	                    data = new DatabaseEntry();
 	                }
