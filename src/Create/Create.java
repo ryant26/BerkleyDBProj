@@ -104,7 +104,7 @@ public class Create {
 
 	    	}
 	    	else {
-	    		System.out.println("Incorrect db_test_option");
+	    		System.out.println("Incorrect db_test_option (should never get here)");
 	    	}
 		}catch (Exception e1) {
             System.err.println("Test failed: " + e1.toString());

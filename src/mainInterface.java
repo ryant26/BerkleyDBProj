@@ -31,6 +31,13 @@ public class mainInterface {
 	    	Scanner user_input = new Scanner( System.in );
 		    boolean option = false;
 		    Create c = null;
+		    
+	    	if (!(args[0].equals("btree") || args[0].equals("hash") || args[0].equals("indexfile"))) {
+	    		System.out.println("Invalid argument to mainInterface, please give either btree,"
+	    				+ "hash, or indexfile as an argument");
+	    		option = true;
+	    	}
+		    
 		    while (option != true) {
 
 		    	System.out.println("Options:");
@@ -42,6 +49,7 @@ public class mainInterface {
 		    	System.out.println("(6) Exit");
 
 		    	String type = user_input.next();
+
 
 		    	if (type.equals("1")) {
 		    		c = new Create(args[0]);
@@ -91,12 +99,6 @@ public class mainInterface {
 		    	else if (type.equals("6")) {
 		    		option = true;
 		    		/* close the database and the db environment */
-		    		if (c.my_table != null) {
-		    			c.my_table.close();
-		    		}
-		    		if (c.my_table_sec != null) {
-		    			c.my_table_sec.close();
-		    		}
 				    user_input.close();
 		    	}
 		    	else {
@@ -104,12 +106,6 @@ public class mainInterface {
 		    	}
 		    }
 
-
-
-
-
-		    /* to remove the table */
-		    //Database.remove(SAMPLE_TABLE,null,null);
 
 	    }
 }
