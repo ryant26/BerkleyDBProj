@@ -26,7 +26,7 @@ public class RangeSearch extends Search {
 
         try{
             //Add the first result
-            cursor.getSearchKey(key, data, LockMode.DEFAULT);
+            cursor.getSearchKeyRange(key, data, LockMode.DEFAULT);
             addToPrintBuffer(key.toString(), data.toString());
 
             //Reinitialize the key and data
@@ -36,13 +36,13 @@ public class RangeSearch extends Search {
             long initTime = System.currentTimeMillis();
             while (cursor.getNext(key, data, LockMode.DEFAULT) ==
                     OperationStatus.SUCCESS){
-
+                i++;
                 String keyString = entryConverter(key);
                 String dataString = entryConverter(data);
 
                 addToPrintBuffer(keyString, dataString);
 
-                if (keyString.equalsIgnoreCase(tokens[1])){
+                if (keyString.compareToIgnoreCase(tokens[1])>=0 || i == 200){
                     _queryTime = System.currentTimeMillis() - initTime;
                     addToPrintBuffer(search, entryConverter(data));
                     printResults();
@@ -75,6 +75,9 @@ public class RangeSearch extends Search {
                         && keyString.compareToIgnoreCase(tokens[1]) <= 0){
                     i++;
                     addToPrintBuffer(keyString, dataString);
+                    if(i == 200){
+                        break;
+                    }
                 }
 
                 key = new DatabaseEntry();

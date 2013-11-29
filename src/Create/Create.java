@@ -12,11 +12,17 @@ public class Create {
 
     // to specify the file name for the table
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
+    /*
 	public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
 	public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
 	public static final String INDEX_TABLE = "/Users/Ryan/Desktop/tmp/index1";
 	public static final String INDEX_TABLE2 = "/Users/Ryan/Desktop/tmp/index2";
-    private static final int NO_RECORDS = 10;
+	*/
+    public static final String BTREE_TABLE = "/tmp/cbotto_db/btree";
+    public static final String HASH_TABLE = "/tmp/cbotto_db/hash";
+    public static final String INDEX_TABLE = "/tmp/cbotto_db/indexpri";
+    public static final String INDEX_TABLE2 = "/tmp/cbotto_db/indexsec";
+    private static final int NO_RECORDS = 100000;
     public String type;
     public Database my_table;
     public Database my_table_sec;
@@ -52,6 +58,7 @@ public class Create {
 			    /* populate the new database with NO_RECORDS records */
 			    populateTable(my_table,NO_RECORDS);
 			    System.out.println("100000 records inserted into" + BTREE_TABLE);
+                //goodBounds(randKey,my_table, 180);
 	    	}
 	    	else if (this.type.equals("hash")) {
 	    		dbConfig.setType(DatabaseType.HASH);
@@ -110,6 +117,8 @@ public class Create {
 		}catch (Exception e1) {
             System.err.println("Test failed: " + e1.toString());
         }
+        randKey2 = "uelyreippplzutlcucaoymesiauqlhtnkqznomvhmjsmjbbbuijngj" +
+                "laktvqbcyaezhyprnjowcqbvisetmmuxrjiloppelopdrrgtfaoxszwrogaoegeefcgndevup";
 	}
 
 	void populateTable(Database my_table, int nrecs ) {
@@ -141,12 +150,7 @@ public class Create {
               s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
             if (i == keyVal1) randKey = s;
-            if (i > keyVal2 && !set){
-                if(s.compareToIgnoreCase(randKey)>0){
-                    randKey2 = s;
-                    set = true;
-                }
-            }
+
             /* to create a DBT for key */
             kdbt = new DatabaseEntry(s.getBytes());
             kdbt.setSize(s.length());
@@ -178,7 +182,6 @@ public class Create {
                 System.exit(1);
 	        }
 	}
-
 }
 
 

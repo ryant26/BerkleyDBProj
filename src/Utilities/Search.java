@@ -66,8 +66,8 @@ public abstract class Search {
         /**
          * Use this to print data about each search class
          */
-        String result = "Query Time: " + _queryTime + "\n"
-                        + "Results: \n" + _printBuffer;
+        String result = "Result: " + _printBuffer + "\n"
+                        + "Query Time: \n" + _queryTime;
         return result;
     }
 
