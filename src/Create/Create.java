@@ -1,20 +1,30 @@
 package Create;
 
+import java.io.File;
 import java.util.Random;
-import com.sleepycat.db.*;
 
+import com.sleepycat.db.*;
+import com.sleepycat.persist.*;
+import com.sleepycat.persist.model.PrimaryKey;
+import com.sleepycat.persist.model.Relationship;
+import com.sleepycat.persist.model.SecondaryKey;
 
 public class Create {
 
     // to specify the file name for the table
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
-    public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
-    public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
+    //public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
+    //public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
+	public static final String BTREE_TABLE = "/tmp/cbotto_db/btree";
+	public static final String HASH_TABLE = "/tmp/cbotto_db/hash";
     private static final int NO_RECORDS = 1000;
     public String type;
     public Database my_table;
+    public static Relationship relate;
+    @PrimaryKey
     public String randKey;
     public String randKey2;
+    @SecondaryKey(relate= Relationship.ONE_TO_ONE)
     public String randData;
 
     public Create(String type) {
@@ -50,7 +60,14 @@ public class Create {
 	    	}
 
 	    	else if (this.type.equals("indexfile")) {
+	    		StoreConfig store = new StoreConfig();
+	    		File enviro = new File("/Users/Cody/workspace/CMPUT291Proj2/enviro");
+	    		Environment env = new Environment(enviro, null);
+	    		EntityStore es = new EntityStore(env, randData, store);
+			    PrimaryIndex<String, String> pi = es.getPrimaryIndex(String.class, String.class);
+			    SecondaryIndex<String, String, String> si = es.getSecondaryIndex(pi, String.class, randData);
 
+			    
 	    	}
 	    	else {
 	    		System.out.println("Incorrect db_test_option (should be caught in mainInterface");
@@ -62,7 +79,7 @@ public class Create {
 
 	void populateTable(Database my_table, int nrecs ) {
         int range;
-            DatabaseEntry kdbt, ddbt;
+        DatabaseEntry kdbt, ddbt;
         String s;
 
         /*
@@ -104,9 +121,9 @@ public class Create {
               s+=(new Character((char)(97+random.nextInt(26)))).toString();
 
             // to print out the key/data pair
-            System.out.println(s);
+            //System.out.println(s);
             if (i == dataVal) randData = s;
-            System.out.println("");
+            //System.out.println("");
 
             /* to create a DBT for data */
             ddbt = new DatabaseEntry(s.getBytes());
@@ -122,3 +139,5 @@ public class Create {
 	}
 
 }
+
+
