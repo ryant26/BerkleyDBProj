@@ -71,6 +71,8 @@ public abstract class Search {
         return result;
     }
 
+    public abstract void rangeSearch(String searchKey);
+
     public Database get_db() {
         return _db;
     }

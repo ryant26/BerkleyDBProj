@@ -41,7 +41,9 @@ public class KeySearch extends Search {
 
     }
 
-
+    public void rangeSearch(String searchKey){
+        //ignore
+    }
 
     public DatabaseEntry getKey() {
         return key;

@@ -52,4 +52,8 @@ public class DataSearch extends Search {
             e.printStackTrace();
         }
     }
+
+    public void rangeSearch(String searchKey){
+        //Not implemented
+    }
 }

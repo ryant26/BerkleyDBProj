@@ -17,6 +17,7 @@ public class RangeSearch extends Search {
     }
 
     public void searchFor(String search){
+
         openCursor();
         String [] tokens = search.split(" ");
         DatabaseEntry key = new DatabaseEntry(tokens[0].getBytes());

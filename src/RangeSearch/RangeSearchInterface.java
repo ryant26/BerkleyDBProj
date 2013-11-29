@@ -2,6 +2,7 @@ package RangeSearch;
 
 import Create.Create;
 import Utilities.SearchInterface;
+import RangeSearch.RangeSearch;
 
 /**
  * User: Ryan
@@ -12,10 +13,16 @@ public class RangeSearchInterface extends SearchInterface{
 
     public RangeSearchInterface(Create cobj, String searchKey){
         super(cobj, searchKey);
+        search = new RangeSearch(cobj.my_table);
     }
 
     public void custSearch(){
-        search.searchFor(this.ranSearchKey);
+        if(create.type.equalsIgnoreCase("btree") || create.type.equalsIgnoreCase("indexfile")){
+            search.searchFor(this.ranSearchKey);
+        }else{
+            search.rangeSearch(this.ranSearchKey);
+        }
+
     }
 
     public void printMSG(){

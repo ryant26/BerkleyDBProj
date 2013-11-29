@@ -16,17 +16,17 @@ public class mainInterface {
 	     *  the main function
 	     */
 	    public static void main(String[] args) throws FileNotFoundException, DatabaseException {
-	    	
-	    	File yourFile = new File("Answers.txt"); 
-	    	yourFile.delete(); 
-	    	File yourNewFile = new File("Answers.txt"); 
+
+	    	File yourFile = new File("Answers.txt");
+	    	yourFile.delete();
+	    	File yourNewFile = new File("Answers.txt");
 	    	try {
 				yourNewFile.createNewFile();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
-	    	
+			}
+
 
 	    	Scanner user_input = new Scanner( System.in );
 		    boolean option = false;
@@ -65,14 +65,9 @@ public class mainInterface {
                     System.out.println("data was:" + c.randData);
 		    	}
 		    	else if (type.equals("4")) {
-                    RangeSearch rs = new RangeSearch(c.my_table);
-                    if (c.type.equalsIgnoreCase("Btree") || c.type.equals("indexfile")){
-                        rs.searchFor(c.randKey + " " +c.randKey2);
-                        System.out.print(rs);
-                    }else{
-                        rs.rangeSearch(c.randKey + " " +c.randKey2);
-                        System.out.println(rs);
-                    }
+                    SearchInterface rsi = new RangeSearchInterface(c, c.randKey + " "  + c.randKey2);
+                    rsi.getKey();
+
 		    	}
 		    	else if (type.equals("5")) {
 		    		if (c.type.equals("btree")) {
@@ -86,7 +81,7 @@ public class mainInterface {
 		    		else if (c.type.equals("indexfile"))
 		    		{
 		    			Database.remove(Create.INDEX_TABLE,null,null);
-		    			
+
 		    			System.out.println("Indexfile database was destroyed");
 		    		}
 		    		else {
