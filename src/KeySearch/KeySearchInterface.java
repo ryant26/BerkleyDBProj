@@ -12,7 +12,11 @@ public class KeySearchInterface extends SearchInterface{
 
     public KeySearchInterface(Create cobj, String searchString){
         super(cobj, searchString);
-        search = new KeySearch(cobj.my_table);
+        if(cobj.type.equalsIgnoreCase("indexfile")){
+            search = new KeySearch(cobj.my_table_sec);
+        }else{
+            search = new KeySearch(cobj.my_table);
+        }
     }
 
     @Override
