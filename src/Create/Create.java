@@ -11,7 +11,6 @@ import com.sleepycat.persist.model.Relationship;
 public class Create {
 
     // to specify the file name for the table
-	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
     /*
 	public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
 	public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
@@ -27,27 +26,22 @@ public class Create {
     public Database my_table;
     public Database my_table_sec;
     public PrintWriter file;
-    public static Relationship relate;
 
     public String randKey;
     public String randKey2;
     private Cursor cursor;
     public String randData;
-    //@SecondaryKey(relate= Relationship.ONE_TO_ONE)
-   // public DatabaseEntry indexData;
 
 
     public Create(String type) {
     	this.type = type;
     	this.my_table = null;
     	this.my_table_sec = null;
-    	this.file = null;
     }
 
 	public void createDatabase() {
 		try {
 		    // Create the database object.
-		    // There is no environment for this simple example.
 		    DatabaseConfig dbConfig = new DatabaseConfig();
 		    if (this.type.equals("btree")) {
 			    dbConfig.setType(DatabaseType.BTREE);
@@ -58,7 +52,6 @@ public class Create {
 			    /* populate the new database with NO_RECORDS records */
 			    populateTable(my_table,NO_RECORDS);
 			    System.out.println("100000 records inserted into" + BTREE_TABLE);
-                //goodBounds(randKey,my_table, 180);
 	    	}
 	    	else if (this.type.equals("hash")) {
 	    		dbConfig.setType(DatabaseType.HASH);
@@ -92,13 +85,12 @@ public class Create {
 	            }
 	            DatabaseEntry key = new DatabaseEntry();
 	            DatabaseEntry data = new DatabaseEntry();
-	            //data.setSize(search.length());
-	            //entityData ed = null;
+
 	            try{
 	                while (cursor.getNext(key, data, LockMode.DEFAULT) == OperationStatus.SUCCESS){
 	                	DatabaseEntry dataString = new DatabaseEntry(key.getData());
 	                    DatabaseEntry keyString = new DatabaseEntry(data.getData());
-	                	//ed =pi.put(new entityData(keyString, dataString));
+	
 
 	                    this.my_table_sec.put(null, keyString, dataString);
 
@@ -112,7 +104,7 @@ public class Create {
 
 	    	}
 	    	else {
-	    		System.out.println("Incorrect db_test_option (should be caught in mainInterface");
+	    		System.out.println("Incorrect db_test_option");
 	    	}
 		}catch (Exception e1) {
             System.err.println("Test failed: " + e1.toString());

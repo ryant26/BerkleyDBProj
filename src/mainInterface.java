@@ -23,7 +23,7 @@ public class mainInterface {
 	    	try {
 				yourNewFile.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.out.println("ERROR: Could not find file 'Answers.txt'");
 				e.printStackTrace();
 			}
 
@@ -91,7 +91,12 @@ public class mainInterface {
 		    	else if (type.equals("6")) {
 		    		option = true;
 		    		/* close the database and the db environment */
-				    //my_table.close();
+		    		if (c.my_table != null) {
+		    			c.my_table.close();
+		    		}
+		    		if (c.my_table_sec != null) {
+		    			c.my_table_sec.close();
+		    		}
 				    user_input.close();
 		    	}
 		    	else {
