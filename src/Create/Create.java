@@ -60,14 +60,21 @@ public class Create {
 	    	}
 
 	    	else if (this.type.equals("indexfile")) {
-	    		//StoreConfig store = new StoreConfig();
+	    		StoreConfig store = new StoreConfig();
+	    		store.setAllowCreate(true);
+	    		store.setTransactional(true);
 	    		File enviro = new File("/tmp/");
-               /* enviro.createNewFile();
-	    		Environment env = new Environment(enviro, null);
-	    		EntityStore es = new EntityStore(env, randData, store);
-			    PrimaryIndex<String, String> pi = es.getPrimaryIndex(String.class, String.class);
-			    SecondaryIndex<String, String, String> si = es.getSecondaryIndex(pi, String.class, randData);
-*/
+			 
+			     EnvironmentConfig envConfig = new EnvironmentConfig();
+			     envConfig.setTransactional(true);
+			     envConfig.setAllowCreate(true);
+			     envConfig.setInitializeCache(true);
+			     envConfig.setCacheSize(1000000);
+			     Environment env = new Environment(enviro, envConfig);
+	    		EntityStore es = new EntityStore(env, "store", store);
+			    //PrimaryIndex<String, String> pi = es.getPrimaryIndex(String.class, String.class);
+			    //SecondaryIndex<String, String, String> si = es.getSecondaryIndex(pi, String.class, randData);
+
 			    dbConfig.setType(DatabaseType.BTREE);
 			    dbConfig.setAllowCreate(true);
 			    Database pri_db = new Database(BTREE_TABLE, null, dbConfig);
@@ -75,12 +82,7 @@ public class Create {
 
 			    /* populate the new database with NO_RECORDS records */
 			    populateTable(pri_db,NO_RECORDS);
-			    
-			     EnvironmentConfig envConfig = new EnvironmentConfig();
-			     envConfig.setTransactional(true);
-			     envConfig.setAllowCreate(true);
-			     envConfig.setCacheSize(1000000);
-			     Environment newlyCreatedEnv = new Environment(enviro, envConfig);
+
 			    
 
 	    	}
