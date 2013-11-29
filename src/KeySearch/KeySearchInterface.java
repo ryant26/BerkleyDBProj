@@ -3,6 +3,8 @@ package KeySearch;
 import java.util.Scanner;
 import Create.*;
 import Utilities.SearchInterface;
+import com.sleepycat.db.Database;
+
 /**
  * User: Ryan
  * Date: 2013-11-24
@@ -10,13 +12,9 @@ import Utilities.SearchInterface;
  */
 public class KeySearchInterface extends SearchInterface{
 
-    public KeySearchInterface(Create cobj, String searchString){
+    public KeySearchInterface(Create cobj, String searchString, Database db){
         super(cobj, searchString);
-        if(cobj.type.equalsIgnoreCase("indexfile")){
-            search = new KeySearch(cobj.my_table_sec);
-        }else{
-            search = new KeySearch(cobj.my_table);
-        }
+            search = new KeySearch(db);
     }
 
     @Override

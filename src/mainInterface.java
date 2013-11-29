@@ -49,14 +49,14 @@ public class mainInterface {
 		    	}
 		    	else if (type.equals("2")) {
 
-                    KeySearchInterface ksi = new KeySearchInterface(c, c.randKey);
+                    KeySearchInterface ksi = new KeySearchInterface(c, c.randKey, c.my_table);
                     ksi.getKey();
 
 		    	}
 		    	else if (type.equals("3")) {
 		    		SearchInterface dsi;
 		    		if (c.type.equals("indexfile")) {
-		    			dsi = new KeySearchInterface(c, c.randData);
+		    			dsi = new KeySearchInterface(c, c.randData, c.my_table_sec);
 		    		}
 		    		else {
                     dsi = new DataSearchInterface(c, c.randData);
