@@ -17,6 +17,16 @@ public class mainInterface {
 	     */
 	    public static void main(String[] args) throws FileNotFoundException, DatabaseException {
 	    	
+	    	File yourFile = new File("Answers.txt"); 
+	    	yourFile.delete(); 
+	    	File yourNewFile = new File("Answers.txt"); 
+	    	try {
+				yourNewFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+	    	
 
 	    	Scanner user_input = new Scanner( System.in );
 		    boolean option = false;
@@ -38,40 +48,6 @@ public class mainInterface {
 		    		c.createDatabase();
 		    	}
 		    	else if (type.equals("2")) {
-                    /*
-		          //c.my_table.get(null, , data, lockMode)
-
-		    		Cursor cursor = null;
-
-		    		    // Database and environment open omitted for brevity
-
-
-		    		    // Open the cursor.
-		    		    cursor = c.my_table.openCursor(null, null);
-
-		    		    // Cursors need a pair of DatabaseEntry objects to operate. These hold
-		    		    // the key and data found at any given position in the database.
-		    		    DatabaseEntry foundKey = new DatabaseEntry();
-		    		    DatabaseEntry foundData = new DatabaseEntry();
-
-		    		    // To iterate, just call getNext() until the last database record has been
-		    		    // read. All cursor operations return an OperationStatus, so just read
-		    		    // until we no longer see OperationStatus.SUCCESS
-		    		    while (cursor.getNext(foundKey, foundData, LockMode.DEFAULT) ==
-		    		        OperationStatus.SUCCESS) {
-		    		        // getData() on the DatabaseEntry objects returns the byte array
-		    		        // held by that object. We use this to get a String value. If the
-		    		        // DatabaseEntry held a byte array representation of some other data
-		    		        // type (such as a complex object) then this operation would look
-		    		        // considerably different.
-		    		        String keyString = new String(foundKey.getData());
-		    		        String dataString = new String(foundData.getData());
-		    		        System.out.println("Key | Data : " + keyString + " | " +
-		    		                       dataString + "");
-		    		        System.out.println(c.my_table.get(null, foundKey, foundData, null).toString());
-		    	        }
-		    		    System.out.println("Enter key:");
-                        */
 
                     KeySearchInterface ksi = new KeySearchInterface(c, c.randKey);
                     ksi.getKey();
