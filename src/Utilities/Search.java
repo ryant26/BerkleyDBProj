@@ -47,7 +47,6 @@ public abstract class Search {
          * into Answers.txt as per assingment description
          */
         try{
-        	//if ()
         	FileWriter pw = new FileWriter("Answers.txt", true);
             pw.write(_printBuffer);
             pw.close();

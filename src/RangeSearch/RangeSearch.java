@@ -27,7 +27,7 @@ public class RangeSearch extends Search {
         try{
             //Add the first result
             cursor.getSearchKeyRange(key, data, LockMode.DEFAULT);
-            addToPrintBuffer(key.toString(), data.toString());
+            addToPrintBuffer(entryConverter(key), entryConverter(data));
 
             //Reinitialize the key and data
             key = new DatabaseEntry();
