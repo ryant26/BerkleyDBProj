@@ -5,6 +5,7 @@ package Utilities; /**
  */
 import com.sleepycat.db.*;
 
+import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public abstract class Search {
@@ -47,8 +48,8 @@ public abstract class Search {
          */
         try{
         	//if ()
-        	PrintWriter pw = new PrintWriter("Answers.txt", "UTF-8");
-            pw.print(_printBuffer);
+        	FileWriter pw = new FileWriter("Answers.txt", true);
+            pw.write(_printBuffer);
             pw.close();
         }catch (Exception e){
             System.out.println("Could not write to txt file");
