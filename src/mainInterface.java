@@ -99,6 +99,10 @@ public class mainInterface {
 		    		Database.remove(Create.HASH_TABLE,null,null);
 		    		System.out.println("Hash database was destroyed");
 		    		}
+		    		else if (c.type.equals("indexfile"))
+		    		{
+		    			System.out.println("Indexfile database was destroyed");
+		    		}
 		    		else {
 		    			System.out.println("No database to destroy");
 		    		}
