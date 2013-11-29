@@ -1,20 +1,22 @@
 import Create.Create;
 import KeySearch.KeySearchInterface;
+
 import com.sleepycat.db.*;
+
 import DataSearch.*;
 import RangeSearch.*;
-
+import Utilities.SearchInterface;
 
 import java.io.*;
 import java.util.*;
 
 public class mainInterface {
 
-
 	    /*
 	     *  the main function
 	     */
 	    public static void main(String[] args) throws FileNotFoundException, DatabaseException {
+	    	
 
 	    	Scanner user_input = new Scanner( System.in );
 		    boolean option = false;
@@ -76,13 +78,19 @@ public class mainInterface {
 
 		    	}
 		    	else if (type.equals("3")) {
-                    DataSearchInterface dsi = new DataSearchInterface(c, c.randData);
+		    		SearchInterface dsi;
+		    		if (c.type.equals("indexfile")) {
+		    			dsi = new KeySearchInterface(c, c.randData);
+		    		}
+		    		else {
+                    dsi = new DataSearchInterface(c, c.randData);
+		    		}
                     dsi.getKey();
                     System.out.println("data was:" + c.randData);
 		    	}
 		    	else if (type.equals("4")) {
                     RangeSearch rs = new RangeSearch(c.my_table);
-                    if (c.type.equalsIgnoreCase("Btree")){
+                    if (c.type.equalsIgnoreCase("Btree") || c.type.equals("indexfile")){
                         rs.searchFor(c.randKey + " " +c.randKey2);
                         System.out.print(rs);
                     }else{
@@ -101,6 +109,8 @@ public class mainInterface {
 		    		}
 		    		else if (c.type.equals("indexfile"))
 		    		{
+		    			Database.remove(Create.INDEX_TABLE,null,null);
+		    			
 		    			System.out.println("Indexfile database was destroyed");
 		    		}
 		    		else {

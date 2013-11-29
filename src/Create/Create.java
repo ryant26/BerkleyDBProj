@@ -1,15 +1,12 @@
 package Create;
 
-import java.io.File;
+import java.io.PrintWriter;
 import java.util.Random;
 
 import com.sleepycat.db.*;
-import com.sleepycat.persist.*;
 import com.sleepycat.persist.model.Entity;
-import com.sleepycat.persist.model.Persistent;
-import com.sleepycat.persist.model.PrimaryKey;
 import com.sleepycat.persist.model.Relationship;
-import com.sleepycat.persist.model.SecondaryKey;
+
 @Entity
 public class Create {
 
@@ -17,10 +14,13 @@ public class Create {
 	//NOTE: I HARDCODED MY USERNAME. CHANGE AT WILL
 	public static final String BTREE_TABLE = "/tmp/cbotto_db/btree";
 	public static final String HASH_TABLE = "/tmp/cbotto_db/hash";
-    private static final int NO_RECORDS = 100000;
+	public static final String INDEX_TABLE = "/tmp/cbotto_db/indexpri";
+	public static final String INDEX_TABLE2 = "/tmp/cbotto_db/indexsec";
+    private static final int NO_RECORDS = 10;
     public String type;
     public Database my_table;
     public Database my_table_sec;
+    public PrintWriter file;
     public static Relationship relate;
     
     public String randKey;
@@ -35,6 +35,7 @@ public class Create {
     	this.type = type;
     	this.my_table = null;
     	this.my_table_sec = null;
+    	this.file = null;
     }
 
 	public void createDatabase() {
@@ -50,7 +51,7 @@ public class Create {
 
 			    /* populate the new database with NO_RECORDS records */
 			    populateTable(my_table,NO_RECORDS);
-			    System.out.println("1000 records inserted into" + BTREE_TABLE);
+			    System.out.println("100000 records inserted into" + BTREE_TABLE);
 	    	}
 	    	else if (this.type.equals("hash")) {
 	    		dbConfig.setType(DatabaseType.HASH);
@@ -60,38 +61,23 @@ public class Create {
 
 			    /* populate the new database with NO_RECORDS records */
 			    populateTable(my_table,NO_RECORDS);
-			    System.out.println("1000 records inserted into" + HASH_TABLE);
+			    System.out.println("100000 records inserted into" + HASH_TABLE);
 	    	}
 
 	    	else if (this.type.equals("indexfile")) {
 	    		
 			    dbConfig.setType(DatabaseType.BTREE);
 			    dbConfig.setAllowCreate(true);
-			    this.my_table = new Database(BTREE_TABLE, null, dbConfig);
-			    System.out.println(BTREE_TABLE + " has been created");
+			    this.my_table = new Database(INDEX_TABLE, null, dbConfig);
+			    System.out.println(INDEX_TABLE + " has been created");
 
 			    /* populate the new database with NO_RECORDS records */
 			    populateTable(this.my_table,NO_RECORDS);
-			    System.out.println("1000 records inserted into" + BTREE_TABLE);
-	    		
-	    		StoreConfig store = new StoreConfig();
-	    		store.setAllowCreate(true);
-	    		store.setTransactional(true);
-	    		File enviro = new File("/tmp/");
-	    		
-	    		dbConfig.setType(DatabaseType.BTREE);
-			    dbConfig.setAllowCreate(true);
+			    System.out.println("100000 records inserted into" + INDEX_TABLE);
 
 			
-			    Database sec_db = new Database(BTREE_TABLE + "Sec", null, dbConfig);
-		        /*EnvironmentConfig envConfig = new EnvironmentConfig();
-			    envConfig.setTransactional(true);
-			    envConfig.setAllowCreate(true);
-			    envConfig.setInitializeCache(true);
-			    envConfig.setCacheSize(1000000);
-			    Environment env = new Environment(enviro, envConfig);
-	    		EntityStore es = new EntityStore(env, "store", store);
-	    		PrimaryIndex<String, entityData> pi = es.getPrimaryIndex(String.class, entityData.class);*/
+			   this.my_table_sec = new Database(INDEX_TABLE2, null, dbConfig);
+			   System.out.println(INDEX_TABLE2 + " has been created");
 	    		try{
 	                cursor = this.my_table.openCursor(null, null);
 	            }catch(Exception e){
@@ -107,7 +93,7 @@ public class Create {
 	                    DatabaseEntry keyString = new DatabaseEntry(data.getData());
 	                	//ed =pi.put(new entityData(keyString, dataString));
 	                    
-	                    sec_db.put(null, keyString, dataString);
+	                    this.my_table_sec.put(null, keyString, dataString);
 	                    
 	                    key = new DatabaseEntry();
 	                    data = new DatabaseEntry();
@@ -115,20 +101,8 @@ public class Create {
 	            }catch (Exception e){
 	                e.printStackTrace();
 	            }
-	            this.my_table_sec = sec_db;
-			    //SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "Data" );
-			 /*
-			     EnvironmentConfig envConfig = new EnvironmentConfig();
-			     envConfig.setTransactional(true);
-			     envConfig.setAllowCreate(true);
-			     envConfig.setInitializeCache(true);
-			     envConfig.setCacheSize(1000000);
-			     Environment env = new Environment(enviro, envConfig);
-	    		EntityStore es = new EntityStore(env, "store", store);
-			    //PrimaryIndex<String, entityData> pi = es.getPrimaryIndex(String.class, entityData.class);
-			    //SecondaryIndex<String, String, entityData> si = es.getSecondaryIndex(pi, String.class, "hiiiii");
+	            System.out.println("100000 records inserted into" + INDEX_TABLE2);
 
-*/
 	    	}
 	    	else {
 	    		System.out.println("Incorrect db_test_option (should be caught in mainInterface");
