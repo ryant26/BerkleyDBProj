@@ -13,8 +13,8 @@ import java.util.Scanner;
  */
 public class DataSearchInterface extends SearchInterface{
 
-    public DataSearchInterface(Create cobj){
-        super(cobj);
+    public DataSearchInterface(Create cobj, String searchString){
+        super(cobj, searchString);
         if (cobj.type.equals("indexfile")) {
         	search = new KeySearch(cobj.my_table_sec);
         }
@@ -25,7 +25,7 @@ public class DataSearchInterface extends SearchInterface{
 
     @Override
     protected void custSearch() {
-        search.searchFor(create.randData);
+        search.searchFor(this.ranSearchKey);
     }
     @Override
     protected void printMSG() {

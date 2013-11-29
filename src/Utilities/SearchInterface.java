@@ -13,7 +13,7 @@ import java.util.Scanner;
 public abstract class SearchInterface {
     protected Create create;
     protected Search search;
-    protected String searchKey;
+    protected String ranSearchKey;
 
     public void getKey(){
         Scanner user_input = new Scanner( System.in );
@@ -26,8 +26,9 @@ public abstract class SearchInterface {
 
     }
 
-    public SearchInterface(Create cobj){
+    public SearchInterface(Create cobj, String ranSearchKey){
         create = cobj;
+        this.ranSearchKey = ranSearchKey;
     }
 
     protected abstract void printMSG();
