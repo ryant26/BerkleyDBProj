@@ -61,13 +61,14 @@ public class Create {
 
 	    	else if (this.type.equals("indexfile")) {
 	    		StoreConfig store = new StoreConfig();
-	    		File enviro = new File("/Users/Cody/workspace/CMPUT291Proj2/enviro");
+	    		File enviro = new File("/Users/Ryan/Desktop/tmp/enviro");
+                enviro.createNewFile();
 	    		Environment env = new Environment(enviro, null);
 	    		EntityStore es = new EntityStore(env, randData, store);
 			    PrimaryIndex<String, String> pi = es.getPrimaryIndex(String.class, String.class);
 			    SecondaryIndex<String, String, String> si = es.getSecondaryIndex(pi, String.class, randData);
 
-			    
+
 	    	}
 	    	else {
 	    		System.out.println("Incorrect db_test_option (should be caught in mainInterface");
