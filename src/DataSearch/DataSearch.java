@@ -22,7 +22,7 @@ public class DataSearch extends Search {
         data.setSize(search.length());
         int i = 0;
 
-            long initTime = System.currentTimeMillis();
+            long initTime = System.nanoTime();
         try{
             while (cursor.getNext(key, data, LockMode.DEFAULT) ==
                     OperationStatus.SUCCESS){
@@ -31,7 +31,7 @@ public class DataSearch extends Search {
 
                 if (dataString.equalsIgnoreCase(search)){
                     cursor.close();
-                    _queryTime = System.currentTimeMillis() - initTime;
+                    _queryTime = (System.nanoTime() - initTime)/1000;
                     addToPrintBuffer(keyString, entryConverter(data));
                     printResults();
                     return;

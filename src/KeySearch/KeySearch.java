@@ -28,9 +28,10 @@ public class KeySearch extends Search {
 
         try {
             //Perform the search
-             long initTime = System.currentTimeMillis();
+             //long initTime = System.currentTimeMillis();
+            long initTime = System.nanoTime();
             _operStatus = _db.get(null, key, data, LockMode.DEFAULT);
-            _queryTime = System.currentTimeMillis() - initTime;
+            _queryTime = (System.nanoTime() - initTime)/1000;
         }catch (DatabaseException edb){
             edb.printStackTrace();
         }

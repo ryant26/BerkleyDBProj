@@ -11,16 +11,17 @@ import com.sleepycat.persist.model.Relationship;
 public class Create {
 
     // to specify the file name for the table
-    /*
+
 	public static final String BTREE_TABLE = "/Users/Ryan/Desktop/tmp/btree";
 	public static final String HASH_TABLE = "/Users/Ryan/Desktop/tmp/hash";
 	public static final String INDEX_TABLE = "/Users/Ryan/Desktop/tmp/index1";
 	public static final String INDEX_TABLE2 = "/Users/Ryan/Desktop/tmp/index2";
-	*/
+	/*
     public static final String BTREE_TABLE = "/tmp/cbotto_db/btree";
     public static final String HASH_TABLE = "/tmp/cbotto_db/hash";
     public static final String INDEX_TABLE = "/tmp/cbotto_db/indexpri";
     public static final String INDEX_TABLE2 = "/tmp/cbotto_db/indexsec";
+    */
     private static final int NO_RECORDS = 100000;
     public String type;
     public Database my_table;
@@ -90,7 +91,7 @@ public class Create {
 	                while (cursor.getNext(key, data, LockMode.DEFAULT) == OperationStatus.SUCCESS){
 	                	DatabaseEntry dataString = new DatabaseEntry(key.getData());
 	                    DatabaseEntry keyString = new DatabaseEntry(data.getData());
-	
+
 
 	                    this.my_table_sec.put(null, keyString, dataString);
 

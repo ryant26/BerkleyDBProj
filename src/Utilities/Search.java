@@ -14,6 +14,7 @@ public abstract class Search {
     protected Database _db;
     protected OperationStatus _operStatus;
     protected String _printBuffer = "";
+    protected int numResults;
 
     public Search(Database db){
         _db = db;
@@ -39,6 +40,7 @@ public abstract class Search {
          * @parm String - data used / returned from query
          */
         _printBuffer += key + "\n" + data + "\n\n";
+        numResults++;
     }
 
     protected void printResults(){
@@ -66,8 +68,8 @@ public abstract class Search {
         /**
          * Use this to print data about each search class
          */
-        String result = "Result: " + _printBuffer + "\n"
-                        + "Query Time: \n" + _queryTime;
+        String result = "Results: " + numResults + "\n"
+                        + "Query Time: " + _queryTime;
         return result;
     }
 

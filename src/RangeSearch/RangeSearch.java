@@ -33,7 +33,7 @@ public class RangeSearch extends Search {
             key = new DatabaseEntry();
             data = new DatabaseEntry();
 
-            long initTime = System.currentTimeMillis();
+            long initTime = System.nanoTime();
             while (cursor.getNext(key, data, LockMode.DEFAULT) ==
                     OperationStatus.SUCCESS){
                 i++;
@@ -43,7 +43,7 @@ public class RangeSearch extends Search {
                 addToPrintBuffer(keyString, dataString);
 
                 if (keyString.compareToIgnoreCase(tokens[1])>=0 || i == 200){
-                    _queryTime = System.currentTimeMillis() - initTime;
+                    _queryTime = (System.nanoTime() - initTime)/1000;
                     addToPrintBuffer(search, entryConverter(data));
                     printResults();
                     return;
@@ -65,7 +65,7 @@ public class RangeSearch extends Search {
         int i = 0;
 
         try{
-            long initTime = System.currentTimeMillis();
+            long initTime = System.nanoTime();
             while(cursor.getNext(key, data,LockMode.DEFAULT) == OperationStatus.SUCCESS){
 
                 String keyString = entryConverter(key);
@@ -83,7 +83,7 @@ public class RangeSearch extends Search {
                 key = new DatabaseEntry();
                 data = new DatabaseEntry();
             }
-            _queryTime = System.currentTimeMillis() - initTime;
+            _queryTime = (System.nanoTime() - initTime)/1000;
             printResults();
             System.out.println(i);
 
