@@ -1,0 +1,9 @@
+clear
+
+export DIR=$DIR"$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+export CLASSPATH=$CLASSPATH:$DIR
+
+javac Create/*.java DataSearch/*.java KeySearch/*.java RangeSearch/*.java Utilities/*.java *.java
+
+java mainInterface $1
